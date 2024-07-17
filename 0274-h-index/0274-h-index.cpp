@@ -2,13 +2,19 @@ class Solution {
 public:
     int hIndex(vector<int>& c) {
         int n = c.size();
-        sort(c.begin(), c.end());
-        int h = 0;
+        
+        //int h = 0;
+        vector<int> v(1001, 0);
         for(int i=0; i<n; i++){
-            int p = n - i;
-            int x = min(c[i], p);
-            h = max(h, x);
+            v[c[i]]++;
         }
-        return h;
+        int x = 0;
+        for(int i=1000; i>=0; i--){
+            x += v[i];
+            if(x >= i){
+                return i;
+            }
+        }
+        return 0;
     }
 };
